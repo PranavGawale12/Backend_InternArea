@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const admin = require('firebase-admin');
+
 const twilio = require('twilio');
+
 const OtpModel = require('../Model/otpSchema');
 require('dotenv').config()
 
-const serviceAccount = require(process.env.FIREBASE_ADMIN_KEY_PATH);
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.DATABASEURL
-});
 
 const twilioClient = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
