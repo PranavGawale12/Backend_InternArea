@@ -26,21 +26,6 @@ router.post("/",async (req,res)=>{
     })
 })
 
-// router.post("/", async(req,res)=>{
-//     try{
-//         const job=jobData;
-//         const savedJobs=[];
-
-//         for(const jobD of job){
-//             const newJob=new Job(jobD);
-//             const savedJob=await newJob.save();
-//             savedJobs.push(savedJob);
-//         }
-//         res.send(savedJobs);
-//     }catch(error){
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
 
 router.get("/",async (req,res)=>{
     try {
