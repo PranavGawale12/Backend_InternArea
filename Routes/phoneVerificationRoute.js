@@ -16,6 +16,11 @@ const generateOTP = () =>{
 
 router.post('/send-otp-phone', async (req, res) => {
     const { phoneNumber } = req.body;
+
+    if (!phoneNumber) {
+      return res.status(400).json({ error: 'Phone number is required' });
+    }
+
     const otp = generateOTP();
     try {
       const otpDocument = new OtpModel({
@@ -30,6 +35,7 @@ router.post('/send-otp-phone', async (req, res) => {
       });
 
       console.log('OTP sent:', message.sid);
+      res.status(200).json({ success: true, message: 'OTP sent successfully' });
     } catch (error) {
       console.error('Error sending OTP:', error);
       res.status(500).json({ error: 'Failed to send OTP' });
@@ -39,6 +45,10 @@ router.post('/send-otp-phone', async (req, res) => {
   router.post('/verify-otp-phone', async (req, res) => {
     const { phoneNumber, otp } = req.body;
   
+    if (!phoneNumber || !otp) {
+      return res.status(400).json({ error: 'Phone number and OTP are required' });
+    }
+
     try {
       const otpDocument = await OtpModel.findOne({
         phoneNumber,
